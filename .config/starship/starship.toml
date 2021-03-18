@@ -1,0 +1,65 @@
+# Use custom format
+format = """
+${username}[@](bold green)$hostname$git_branch$git_status : $directory
+$status$character
+"""
+
+
+# Wait 10 milliseconds for staship to check files under the current directory.
+scan_timeout = 10
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]
+success_symbol = "[%%](bold white)"
+error_symbol = "[%%](bold white)"
+
+[hostname]
+ssh_only = false
+style="bold green"
+format =  "[$hostname]($style)"
+disabled = false
+
+[directory]
+truncation_length=8
+truncate_to_repo=false
+disabled=false
+
+[status]
+style = 'bold red'
+format = '[\[$status\]]($style) '
+disabled = false
+
+[line_break]
+disabled = false
+
+[cmd_duration]
+disabled = true
+
+[username]
+style_user = "green bold"
+style_root = "black bold"
+format = "[$user]($style)"
+disabled = false
+show_always = true
+
+[git_project]
+cmd="basename $(git rev-parse --show-toplevel)"
+when="git rev-parse --is-inside-work-tree"
+style="bold blue"
+format="[$output]($style)"
+
+[git_branch]
+format=" [$branch]($style) "
+style="bold yellow"
+
+[git_status]
+conflicted = "✘"
+untracked = "[∙](bold white)"
+stashed = "[∙](bold cyan)"
+staged = "[∙](bold green)"
+unstaged = "[∙](bold red)"
+modified = "[∙](bold red)"
+deleted = "[∙](bold red)"
+renamed = "[∙](bold red)"
+#format = "[ $all_status$ahead_behind ]"
+format='([$conflicted$staged$modified$untracked$ahead_behind]($style))'
